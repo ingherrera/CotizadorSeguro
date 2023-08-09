@@ -1,9 +1,11 @@
 import { useCallback, useRef } from "react";
-import useCotizador from "../hooks/useCotizador"
+// import useCotizador from "../hooks/useCotizador"
 import { MARCAS, PLANES } from "../constants";
+import { useSelector } from "react-redux";
 
 function Resumen() {
-  const { datos, resultado } = useCotizador()
+  // const { datos, resultado } = useCotizador()
+  const { datos, resultado } = useSelector((state) => state.cotizador);
   const { marca, year, plan } = datos
   const yearRef = useRef(year)
   // console.log({yearRef})

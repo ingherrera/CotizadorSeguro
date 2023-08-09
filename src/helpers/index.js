@@ -33,3 +33,28 @@ export function formatearDinero(cantidad) {
     currency: "USD",
   });
 }
+
+export function cotizarSeguro({ year, marca, plan }) {
+  // Una base de 2000
+  let resultado = 2000;
+
+  // Obtener la diferencia de años
+  const diferencia = obtenerDiferenciaYear(year);
+
+  // por cada año hay que restar el 3%
+  resultado -= (resultado * diferencia * 3) / 100;
+
+  // Europeo 30%
+  // Americano 15%
+  // Asiatico 5%
+  resultado *= calcularMarca(marca);
+
+  // Básico 20%
+  // Completo 50%
+  resultado *= calcularPlan(plan);
+
+  // Formatear Dinero
+  resultado = formatearDinero(resultado);
+
+  return resultado;
+}

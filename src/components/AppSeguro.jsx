@@ -1,11 +1,14 @@
-import useCotizador from "../hooks/useCotizador"
-import Formulario from "./Formulario"
-import Resumen from "./Resumen"
-import Spinner from "./Spinner"
-
+// import useCotizador from "../hooks/useCotizador"
+import { useSelector } from "react-redux";
+import Formulario from "./Formulario";
+import Resumen from "./Resumen";
+import Spinner from "./Spinner";
 
 function AppSeguro() {
-  const { cargando } = useCotizador()
+  // const { cargando } = useCotizador()
+
+  const { cargando } = useSelector((state) => state.cotizador);
+
   //console.log({cargando})
   return (
     <>
@@ -14,11 +17,10 @@ function AppSeguro() {
       </header>
       <main className="bg-white md:w-2/3 lg:w-2/4 mx-auto shadow rounded-lg p-10">
         <Formulario />
-        {cargando ?  <Spinner/> : <Resumen/>}
+        {cargando ? <Spinner /> : <Resumen />}
       </main>
     </>
-
-  )
+  );
 }
 
-export default AppSeguro
+export default AppSeguro;
