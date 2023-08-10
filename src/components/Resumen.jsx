@@ -1,27 +1,30 @@
 import { useCallback, useRef } from "react";
-// import useCotizador from "../hooks/useCotizador"
 import { MARCAS, PLANES } from "../constants";
-import { useSelector } from "react-redux";
+import { useStore } from "../zustand/store";
 
 function Resumen() {
-  // const { datos, resultado } = useCotizador()
-  const { datos, resultado } = useSelector((state) => state.cotizador);
-  const { marca, year, plan } = datos
-  const yearRef = useRef(year)
+  const { datos, resultado } = useStore();
+  console.log({ datos }, { resultado });
+  const { marca, year, plan } = datos;
+  const yearRef = useRef(year);
   // console.log({yearRef})
 
-  const [nombreMarca] = useCallback(MARCAS.filter( m => m.id == Number(marca)),[resultado])
-
-  // console.log({ nombreMarca })
-  
-  const [nombrePlan] = useCallback(PLANES.filter((p) => p.id == Number(plan)),
+  const [nombreMarca] = useCallback(
+    MARCAS.filter((m) => m.id == Number(marca)),
     [resultado]
   );
-    
+
+  // console.log({ nombreMarca })
+
+  const [nombrePlan] = useCallback(
+    PLANES.filter((p) => p.id == Number(plan)),
+    [resultado]
+  );
+
   // console.log({ nombrePlan })
 
   if (resultado === 0) return null;
-  
+
   return (
     <div className="bg-gray-100 text-center mt-5 p-5">
       <h2 className="text-gray-600 font-black text-3xl">Resumen</h2>
@@ -39,10 +42,10 @@ function Resumen() {
       </p>
       <p className="my-2 text-2xl">
         <span className="font-bold">Total Cotización:</span>
-        { resultado }
+        {resultado}
       </p>
     </div>
   );
 }
 
-export default Resumen
+export default Resumen;

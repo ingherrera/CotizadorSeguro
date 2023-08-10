@@ -1,43 +1,37 @@
 import { Fragment } from "react";
 import { MARCAS, YEARS, PLANES } from "../constants"
 
-// import useCotizador from "../hooks/useCotizador";
 import Error from "./Error";
-import { useDispatch, useSelector } from "react-redux";
-import { setDatos, setError, setResultado, setCargando } from "../redux-toolkit/cotizadorSlice";
+import { useStore } from "../zustand/store";
 import { cotizarSeguro } from "../helpers";
 
 function Formulario() {
-  // const { datos, handleChange, cotizarSeguro, error, setError } = useCotizador()
-  // const { cotizarSeguro, error, setError } = useCotizador();
-  // console.log({datos})
+  const { datos, error } = useStore();
 
-  const {datos, error} = useSelector((state) => state.cotizador);
-  const dispatch = useDispatch();
+  const { setDatos, setError, setResultado, setCargando } = useStore();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    dispatch(setDatos({ name, value }));
+    setDatos(name, value);
   };
 
   function handleSubmit(e) {
     e.preventDefault();
     if (Object.values(datos).includes("")) {
-      dispatch(setError("Todos los campos son obligatorios"));
-      return
+      setError("Todos los campos son obligatorios");
+      return;
     }
 
-    dispatch(setError(""));
-    
-    const resultado = cotizarSeguro(datos)
-    
-    dispatch(setCargando(true));
-    
+    setError("");
+
+    const resultado = cotizarSeguro(datos);
+
+    setCargando(true);
+
     setTimeout(() => {
-      dispatch(setResultado(resultado));
-      dispatch(setCargando(false));
+      setResultado(resultado);
+      setCargando(false);
     }, 3000);
-    
   }
 
   return (

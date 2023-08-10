@@ -1,15 +1,12 @@
-// import useCotizador from "../hooks/useCotizador"
-import { useSelector } from "react-redux";
+import { useStore } from "../zustand/store";
 import Formulario from "./Formulario";
 import Resumen from "./Resumen";
 import Spinner from "./Spinner";
 
 function AppSeguro() {
-  // const { cargando } = useCotizador()
+  const { cargando } = useStore();
+  console.log({ cargando });
 
-  const { cargando } = useSelector((state) => state.cotizador);
-
-  //console.log({cargando})
   return (
     <>
       <header className="my-10">
